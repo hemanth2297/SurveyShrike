@@ -31,6 +31,21 @@ const Sliders = () => (
         }}
         range={{ min: 0, max: 100 }}
       />
+
+      <Slider
+        connect={[false, true]}
+        start={[85]}
+        pips={{
+          mode: "positions",
+          values: [0, 25, 50, 75, 100],
+          stepped: true,
+          density: 5
+        }}
+        range={{ min: 0, max: 100 }}
+      />
+
+
+
     </div>
   </ListGroupItem>
 );

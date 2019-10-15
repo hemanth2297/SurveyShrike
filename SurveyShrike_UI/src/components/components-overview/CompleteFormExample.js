@@ -58,8 +58,10 @@ const CompleteFormExample = () => (
               <Col md="4" className="form-group">
                 <label htmlFor="feInputState">State</label>
                 <FormSelect id="feInputState">
-                  <option>Choose...</option>
-                  <option>...</option>
+                  <option>,dfbv,</option>
+                  <option>,dfbv,</option>
+                  <option>sd.vn.,m</option>
+                  <option>sdv</option>
                 </FormSelect>
               </Col>
               <Col md="2" className="form-group">
