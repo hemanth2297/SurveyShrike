@@ -1,12 +1,6 @@
 export default function () {
   return [
     {
-      title: "Blog Dashboard",
-      to: "/blog-overview",
-      htmlBefore: '<i class="material-icons">edit</i>',
-      htmlAfter: ""
-    },
-    {
       title: "User Dashboard",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: "/user-surveys",
@@ -17,34 +11,9 @@ export default function () {
       to: "/all-surveys",
     },
     {
-      title: "Blog Posts",
-      htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/blog-posts_old",
-    },
-    {
-      title: "Add New Post",
-      htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-new-post",
-    },
-    {
       title: "Add New Survey",
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/add-new-survey",
-    },
-    {
-      title: "Forms & Components",
-      htmlBefore: '<i class="material-icons">view_module</i>',
-      to: "/components-overview",
-    },
-    {
-      title: "Survey Form",
-      htmlBefore: '<i class="material-icons">view_module</i>',
-      to: "/survey-form",
-    },
-    {
-      title: "Tables",
-      htmlBefore: '<i class="material-icons">table_chart</i>',
-      to: "/tables",
     },
     {
       title: "User Profile",

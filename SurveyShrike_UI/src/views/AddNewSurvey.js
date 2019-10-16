@@ -152,7 +152,10 @@ export default class AddNewSurvey extends React.Component {
 
   }
   render() {
+    if (localStorage.getItem('access_token') === null) {
+      this.props.history.push("/login");
 
+    }
     return (
       <Container fluid className="main-content-container px-4 pb-4">
         {/* Page Header */}

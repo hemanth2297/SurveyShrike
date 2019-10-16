@@ -28,6 +28,12 @@ class BlogPosts extends React.Component {
 
 
   componentDidMount = () => {
+    console.log(localStorage.getItem('access_token'))
+    if (localStorage.getItem('access_token') === null) {
+      this.props.history.push("/login");
+      return
+    }
+
     getAllSurvyes().then(response => {
       for (let i = 0; i < response.results.length; i++) {
         console.log(i)
@@ -47,6 +53,7 @@ class BlogPosts extends React.Component {
     const {
       PostsListOne,
     } = this.state;
+
 
     return (
       <Container fluid className="main-content-container px-4">

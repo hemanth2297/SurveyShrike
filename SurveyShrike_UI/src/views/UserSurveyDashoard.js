@@ -13,7 +13,7 @@ import {
 } from "shards-react";
 
 
-import { getAllSurvyes } from '../assets/form';
+import { getUserSurvyes } from '../assets/form';
 import PageTitle from "../components/common/PageTitle";
 
 class BlogPosts extends React.Component {
@@ -28,9 +28,13 @@ class BlogPosts extends React.Component {
 
 
   componentDidMount = () => {
-    getAllSurvyes().then(response => {
+    if (localStorage.getItem('access_token') === null) {
+      this.props.history.push("/login");
+      return
+    }
+
+    getUserSurvyes().then(response => {
       for (let i = 0; i < response.results.length; i++) {
-        console.log(i)
         response["results"][i]["date"] = "29 February 2019"
         response["results"][i]["authorAvatar"] = require("../images/avatars/3.jpg")
         response["results"][i]["backgroundImage"] = require("../images/content-management/4.jpeg")

@@ -16,20 +16,33 @@ import BlogPosts from "./views/BlogPosts";
 import SurveyDashboard from "./views/SurveyDashboard";
 import SurveyForm from "./views/SurveyForm";
 import Login from "./views/login";
+import Logout from "./views/logout";
+import Register from './views/Register';
 import SurveyEntries from "./views/SurveyEntries";
 import UserSurveyDashoard from './views/UserSurveyDashoard';
+
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/login" />
   },
   {
     path: "/login",
     layout: DefaultLayout,
     component: Login
+  },
+  {
+    path: "/logout",
+    layout: DefaultLayout,
+    component: Logout
+  },
+  {
+    path: "/register",
+    layout: DefaultLayout,
+    component: Register
   },
   {
     path: "/blog-overview",

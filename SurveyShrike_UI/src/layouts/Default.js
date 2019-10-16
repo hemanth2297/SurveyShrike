@@ -1,15 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Container, Row, Col } from "shards-react";
 
 import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
-import MainFooter from "../components/layout/MainFooter";
+// import MainFooter from "../components/layout/MainFooter";
 
-const DefaultLayout = ({ children, noNavbar, noFooter }) => (
+
+const DefaultLayout = ({ children, noNavbar, noSidebar }) => (
   <Container fluid>
     <Row>
-      <MainSidebar />
+      {!noSidebar && <MainSidebar />}
       <Col
         className="main-content p-0"
         lg={{ size: 10, offset: 2 }}
@@ -19,26 +20,44 @@ const DefaultLayout = ({ children, noNavbar, noFooter }) => (
       >
         {!noNavbar && <MainNavbar />}
         {children}
-        {!noFooter && <MainFooter />}
+        {/* {!noFooter && <MainFooter />} */}
       </Col>
     </Row>
   </Container>
 );
 
-DefaultLayout.propTypes = {
-  /**
-   * Whether to display the navbar, or not.
-   */
-  noNavbar: PropTypes.bool,
-  /**
-   * Whether to display the footer, or not.
-   */
-  noFooter: PropTypes.bool
-};
+// console.log(props)
 
-DefaultLayout.defaultProps = {
-  noNavbar: false,
-  noFooter: false
-};
+// DefaultLayout.propTypes = {
+
+//   /**
+//    * Whether to display the navbar, or not.
+//    */
+//   noNavbar: PropTypes.bool,
+//   /**
+//    * Whether to display the footer, or not.
+//    */
+//   noFooter: PropTypes.bool
+// };
+
+// DefaultLayout.defaultProps = {
+//   noNavbar: false,
+//   noSidebar: false
+// };
+
+// console.log(window.location.pathname)
+// if (window.location.pathname === '/login' || window.location.pathname === '/register' ||
+//   window.location.pathname === '/logout' || window.location.pathname === '/survey-form') {
+//   DefaultLayout.defaultProps = {
+//     noNavbar: true,
+//     noSidebar: true
+//   };
+// }
+// else {
+//   DefaultLayout.defaultProps = {
+//     noNavbar: false,
+//     noSidebar: false
+//   };
+// }
 
 export default DefaultLayout;

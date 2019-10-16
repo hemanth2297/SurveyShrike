@@ -12,6 +12,10 @@ export default () => (
   <Router basename={process.env.REACT_APP_BASENAME || ""}>
     <div>
       {routes.map((route, index) => {
+        const noNavbar = route.path === "/login" || route.path === "/logout" || route.path === "/register" ||
+          route.path === "/survey-form" ? true : false;
+        const noSidebar = route.path === "/login" || route.path === "/logout" || route.path === "/register" ||
+          route.path === "/survey-form" ? true : false;
         return (
           <Route
             key={index}
@@ -19,7 +23,7 @@ export default () => (
             exact={route.exact}
             component={withTracker(props => {
               return (
-                <route.layout {...props}>
+                <route.layout {...props} noNavbar={noNavbar} noSidebar={noSidebar} >
                   <route.component {...props} />
                 </route.layout>
               );

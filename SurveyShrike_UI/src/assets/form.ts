@@ -42,6 +42,24 @@ export async function getAllSurvyes() {
     }
 }
 
+
+export async function getUserSurvyes() {
+    const access_token = localStorage.getItem('access_token')
+    const userName = localStorage.getItem('userName')
+    if (access_token) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': access_token
+            },
+            body: JSON.stringify({ "userName": userName })
+        };
+        const response = await fetch(surveyUrl + "getUserSurveys", requestOptions);
+        return handleResponse(response);
+    }
+}
+
 export async function getSurveyEntries(surveyName: any) {
     const access_token = localStorage.getItem('access_token')
     if (access_token) {
@@ -114,7 +132,6 @@ export async function fillForm(surveyEntry: any) {
 function handleResponse(response: any) {
     return response.text().then((text: any) => {
         const data = text && JSON.parse(text);
-        console.log(data)
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api

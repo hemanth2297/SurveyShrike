@@ -25,44 +25,61 @@ export async function login(username: string, password: string) {
     const user = await handleResponse(response);
     // login successful if there's a user in the response
     if (user) {
-        // store user details and basic auth credentials in local storage 
-        // to keep user logged in between page refreshes
-        // user.authdata = window.btoa(username + ':' + password);
-
         localStorage.setItem('userName', user["userName"]);
         localStorage.setItem('access_token', user["access_token"]);
     }
     return user;
 }
 
-export function logout() {
+export async function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('userName');
-    localStorage.removeItem('access_token');
+    const access_token = localStorage.getItem('access_token')
+
+    if (access_token) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': access_token
+            },
+        };
+        const url = "http://127.0.0.1:5001/logout"
+        let response = await fetch(url, requestOptions);
+        console.log(response)
+        response = await handleResponse(response);
+
+        localStorage.removeItem('userName');
+        localStorage.removeItem('access_token');
+
+
+    }
 }
-
-// export async function getAll() {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-
-//     const response = await fetch(`/users`, requestOptions);
-//     return handleResponse(response);
-// }
+export async function register(username: string, password: string) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    };
+    const url = "http://127.0.0.1:5001/register"
+    const response = await fetch(url, requestOptions);
+    console.log(response)
+    const user = await handleResponse(response);
+    // login successful if there's a user in the response
+    if (user) {
+        localStorage.setItem('userName', user["userName"]);
+        localStorage.setItem('access_token', user["access_token"]);
+    }
+    return user;
+}
 
 function handleResponse(response: any) {
     return response.text().then((text: any) => {
         const data = text && JSON.parse(text);
-        console.log(data)
-        if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                logout();
-            }
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
-        }
+        // console.log(data)
+        // if (!response.ok) {
+        //     const error = (data && data.message) || response.statusText;
+        //     return Promise.reject(error);
+        // }
         return data;
     });
 }
