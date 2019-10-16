@@ -7,9 +7,14 @@ export default function () {
       htmlAfter: ""
     },
     {
+      title: "User Dashboard",
+      htmlBefore: '<i class="material-icons">vertical_split</i>',
+      to: "/user-surveys",
+    },
+    {
       title: "All Surveys",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/blog-posts",
+      to: "/all-surveys",
     },
     {
       title: "Blog Posts",

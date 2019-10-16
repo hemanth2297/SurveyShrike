@@ -41,7 +41,7 @@ export default class AddNewSurvey extends React.Component {
 
 
     getSurvey(surveyName).then(response => {
-      console.log(surveyName)
+      console.log(response)
     })
   }
 

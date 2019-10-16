@@ -17,14 +17,14 @@ const surveyTemplate = {
     }
 }
 
-const surveyEntry = {
-    'userName': "Hemanth",
-    'surveyName': "test",
-    'entryForm': {
-        "0": "ans1",
-        "1": "ans1"
-    }
-}
+// const surveyEntry = {
+//     'userName': "Hemanth",
+//     'surveyName': "test",
+//     'entryForm': {
+//         "0": "ans1",
+//         "1": "ans1"
+//     }
+// }
 const surveyUrl = "http://127.0.0.1:5002/"
 
 export async function getAllSurvyes() {
@@ -77,7 +77,7 @@ export async function getSurvey(surveyName: any) {
     }
 }
 
-export async function fillForm() {
+export async function fillForm(surveyEntry: any) {
     const access_token = localStorage.getItem('access_token')
     if (access_token) {
         const requestOptions = {

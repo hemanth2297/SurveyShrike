@@ -82,7 +82,7 @@ class BlogPosts extends React.Component {
                 </div>
                 <CardBody>
                   <h5 className="card-title" style={{ minHeight: "20px" }}>
-                    <a href={"/survey-form?surveyName=" + post.surveyName} className="text-fiord-blue">
+                    <a href={"/survey-entries?surveyName=" + post.surveyName} className="text-fiord-blue">
                       {post.surveyName}
                     </a>
                   </h5>

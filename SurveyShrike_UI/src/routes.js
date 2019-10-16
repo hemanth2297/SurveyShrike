@@ -17,6 +17,7 @@ import SurveyDashboard from "./views/SurveyDashboard";
 import SurveyForm from "./views/SurveyForm";
 import Login from "./views/login";
 import SurveyEntries from "./views/SurveyEntries";
+import UserSurveyDashoard from './views/UserSurveyDashoard';
 
 export default [
   {
@@ -81,8 +82,13 @@ export default [
     component: BlogPosts
   },
   {
-    path: "/blog-posts",
+    path: "/all-surveys",
     layout: DefaultLayout,
     component: SurveyDashboard
+  },
+  {
+    path: "/user-surveys",
+    layout: DefaultLayout,
+    component: UserSurveyDashoard
   }
 ];
