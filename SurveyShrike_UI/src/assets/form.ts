@@ -42,6 +42,22 @@ export async function getAllSurvyes() {
     }
 }
 
+export async function getSurveyEntries(surveyName: any) {
+    const access_token = localStorage.getItem('access_token')
+    if (access_token) {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': access_token
+            },
+            body: JSON.stringify({ "surveyName": surveyName })
+        };
+        const response = await fetch(surveyUrl + "getSurveyEntries", requestOptions);
+        return handleResponse(response);
+    }
+}
+
 export async function createForm(surveyObject: any) {
     const access_token = localStorage.getItem('access_token')
     if (access_token) {

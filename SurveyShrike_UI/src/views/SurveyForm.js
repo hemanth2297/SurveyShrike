@@ -95,7 +95,7 @@ export default class SurveyForm extends React.Component {
             <fieldset >
               {
                 QuestionObject.options.split(",").map((option, index2) => {
-                  return <FormRadio key={index2} onChange={() => {
+                  return <FormRadio inline key={index2} onChange={() => {
                     this.addToRadio(index, option);
                   }}
                     checked={this.state.answers[index] === option}
