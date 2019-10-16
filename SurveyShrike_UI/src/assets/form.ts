@@ -25,76 +25,70 @@ const surveyEntry = {
         "1": "ans1"
     }
 }
+const surveyUrl = "http://127.0.0.1:5002/"
 
 export async function getAllSurvyes() {
-    const test = localStorage.getItem('user')
-    if (test) {
-        const user = JSON.parse(test);
+    const access_token = localStorage.getItem('access_token')
+    if (access_token) {
         const requestOptions = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': user.access_token
+                'Authorization': access_token
             },
         };
-        const url = "http://127.0.0.1:5002/getAllSurveys"
-        const response = await fetch(url, requestOptions);
+        const response = await fetch(surveyUrl + "getAllSurveys", requestOptions);
         return handleResponse(response);
     }
 }
 
 export async function createForm(surveyObject: any) {
-    const test = localStorage.getItem('user')
-    if (test) {
-        const user = JSON.parse(test);
+    const access_token = localStorage.getItem('access_token')
+    if (access_token) {
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': user.access_token
+                'Authorization': access_token
             },
             body: JSON.stringify(surveyObject)
         };
-        const url = "http://127.0.0.1:5002/createSurvey"
-        const response = await fetch(url, requestOptions);
+        const response = await fetch(surveyUrl + "createSurvey", requestOptions);
         return handleResponse(response);
 
     }
 }
 
-export async function getForm() {
-    const test = localStorage.getItem('user')
-    if (test) {
-        const user = JSON.parse(test);
+export async function getSurvey(surveyName: any) {
+    const access_token = localStorage.getItem('access_token')
+    if (access_token) {
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': user.access_token
+                'Authorization': access_token
             },
-            body: JSON.stringify({ "surveyName": "tesgggt3" })
+            body: JSON.stringify({ "surveyName": surveyName })
         };
-        const url = "http://127.0.0.1:5002/surveyForm"
-        const response = await fetch(url, requestOptions);
+        const response = await fetch(surveyUrl + "getSurvey", requestOptions);
+        console.log(response)
         return handleResponse(response);
 
     }
 }
 
 export async function fillForm() {
-    const test = localStorage.getItem('user')
-    if (test) {
-        const user = JSON.parse(test);
+    const access_token = localStorage.getItem('access_token')
+    if (access_token) {
         const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': user.access_token
+                'Authorization': access_token
             },
             body: JSON.stringify(surveyEntry)
         };
-        const url = "http://127.0.0.1:5002/fillSurvey"
-        const response = await fetch(url, requestOptions);
+        const response = await fetch(surveyUrl + "fillSurvey", requestOptions);
         return handleResponse(response);
 
     }

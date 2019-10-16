@@ -16,6 +16,7 @@ import BlogPosts from "./views/BlogPosts";
 import SurveyDashboard from "./views/SurveyDashboard";
 import SurveyForm from "./views/SurveyForm";
 import Login from "./views/login";
+import SurveyEntries from "./views/SurveyEntries";
 
 export default [
   {
@@ -48,6 +49,11 @@ export default [
     path: "/add-new-survey",
     layout: DefaultLayout,
     component: AddNewSurvey
+  },
+  {
+    path: "/survey-entries",
+    layout: DefaultLayout,
+    component: SurveyEntries
   },
   {
     path: "/errors",
