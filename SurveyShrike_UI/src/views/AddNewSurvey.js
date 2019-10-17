@@ -19,7 +19,7 @@ import {
 import { createForm } from '../assets/form';
 
 import PageTitle from "../components/common/PageTitle";
-import SidebarActions from "../components/add-new-post/AddQuestion";
+import AddQuestion from "../components/add-new-post/AddQuestion";
 import SidebarCategories from "../components/add-new-post/SidebarCategories";
 
 
@@ -37,7 +37,25 @@ export default class AddNewSurvey extends React.Component {
       disableOptions: true,
       disaleRange: true,
       surveyQuestions: [],
+      validate: false,
     };
+  }
+
+  validate = () => {
+    if (this.state.question === "") {
+      return false;
+    }
+    if ((this.state.questionType === "DropDown" || this.state.questionType === "Radio") && this.state.options === "") {
+      return false;
+    }
+
+    if (this.state.questionType === "Slider") {
+      if (this.state.rangeFrom === "" || this.state.rangeTo === "" || (parseInt(this.state.rangeFrom) >= parseInt(this.state.rangeTo))) {
+        return false;
+      }
+    }
+
+    return true
   }
 
   createSurvey = () => {
@@ -55,6 +73,13 @@ export default class AddNewSurvey extends React.Component {
     createForm(surveyObject)
   }
   addQuestion = () => {
+    if (!this.validate()) {
+      this.setState({
+        validate: true
+      })
+      return;
+    }
+
     const obj = {
       "question": this.state.question,
       "questionType": this.state.questionType,
@@ -68,7 +93,6 @@ export default class AddNewSurvey extends React.Component {
       surveyQuestions: intialQuestions
     })
 
-    console.log(this.state.surveyQuestions)
   }
 
   AddRadioQuestion = (QuestionObject) => {
@@ -142,6 +166,7 @@ export default class AddNewSurvey extends React.Component {
   addToState = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
+      validate: false
     })
     if (event.target.name === "questionType") {
       this.setState({
@@ -215,12 +240,13 @@ export default class AddNewSurvey extends React.Component {
 
           {/* Sidebar Widgets */}
           <Col lg="3" md="12">
-            <SidebarActions
+            <AddQuestion
               addToState={this.addToState}
               disableOptions={this.state.disableOptions}
               disableRange={this.state.disaleRange}
               addQuestion={this.addQuestion}
-            ></SidebarActions>
+              {...this.state}
+            ></AddQuestion>
             <SidebarCategories />
           </Col>
         </Row>

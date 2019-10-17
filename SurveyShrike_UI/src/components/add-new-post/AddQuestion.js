@@ -26,6 +26,22 @@ export default class SidebarActions extends React.Component {
 
 
   render() {
+    let questionClass = "", optionClass = "", rangeClass = ""
+    if (this.props.validate) {
+      if (this.props.question === "") {
+        questionClass = "Invalid"
+      }
+      else if ((this.props.questionType === "DropDown" || this.props.questionType === "Radio") && this.props.options === "") {
+        optionClass = "Invalid"
+      }
+
+      else if (this.props.questionType === "Slider") {
+        if (this.props.rangeFrom === "" || this.props.rangeTo === "" || (parseInt(this.props.rangeFrom) >= parseInt(this.props.rangeTo))) {
+          rangeClass = "Invalid"
+        }
+      }
+    }
+
     return (
       <Card small className="mb-3">
         <CardHeader className="border-bottom">
@@ -46,12 +62,12 @@ export default class SidebarActions extends React.Component {
 
               <FormGroup>
                 <label htmlFor="feInputAddress">Add Question</label>
-                <FormInput id="feInputAddress" placeholder="Add Question" name="question" onChange={this.props.addToState} />
+                <FormInput className={questionClass} cid="feInputAddress" placeholder="Add Question" name="question" onChange={this.props.addToState} />
               </FormGroup>
 
               <FormGroup>
                 <label htmlFor="feInputAddress">Add Options</label>
-                <FormInput id="feInputAddress" placeholder="Comma Separated" name="options"
+                <FormInput className={optionClass} id="feInputAddress" placeholder="Comma Separated" name="options"
                   onChange={this.props.addToState} disabled={this.props.disableOptions} />
               </FormGroup>
 
@@ -66,6 +82,7 @@ export default class SidebarActions extends React.Component {
                           type="number"
                           placeholder="From"
                           name="rangeFrom"
+                          className={rangeClass}
                           disabled={this.props.disableRange}
                           onChange={this.props.addToState}
                         />
@@ -76,6 +93,7 @@ export default class SidebarActions extends React.Component {
                           type="number"
                           placeholder="To"
                           name="rangeTo"
+                          className={rangeClass}
                           disabled={this.props.disableRange}
                           onChange={this.props.addToState}
                         />

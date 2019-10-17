@@ -1,5 +1,13 @@
 .RadioOption .custom-control{
 
   display: inline-block !important;
+}
 
+.Invalid{
+  border-color: red;
+  border-width: 2px;
+}
+
+.InvalidEntry{
+  color:red;
 }

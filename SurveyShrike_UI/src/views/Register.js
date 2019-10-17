@@ -47,7 +47,7 @@ export default class Login extends React.Component {
                     this.props.history.push("/user-surveys");
                 }
                 else {
-                    this.setState({ error: "error", loading: false })
+                    this.setState({ error: "UserName Already Exists", loading: false })
                 }
             },
             );
@@ -57,7 +57,7 @@ export default class Login extends React.Component {
         const { username, password, confirmPassword, submitted, loading, error, passwordMatching } = this.state;
         return (
             <div className="col-md-6 col-md-offset-3">
-                <h2>Login</h2>
+                <h2>Register</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                         <label htmlFor="username">Username</label>

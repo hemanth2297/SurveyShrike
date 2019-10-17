@@ -24,7 +24,8 @@ export async function login(username: string, password: string) {
     console.log(response)
     const user = await handleResponse(response);
     // login successful if there's a user in the response
-    if (user) {
+
+    if (response.ok) {
         localStorage.setItem('userName', user["userName"]);
         localStorage.setItem('access_token', user["access_token"]);
     }
@@ -65,7 +66,7 @@ export async function register(username: string, password: string) {
     console.log(response)
     const user = await handleResponse(response);
     // login successful if there's a user in the response
-    if (user) {
+    if (response.ok) {
         localStorage.setItem('userName', user["userName"]);
         localStorage.setItem('access_token', user["access_token"]);
     }

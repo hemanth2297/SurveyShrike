@@ -29,6 +29,7 @@ export default class SurveyForm extends React.Component {
       surveyForm: {},
       answers: {},
       userName: "",
+      validate: false
     };
   }
 
@@ -46,6 +47,22 @@ export default class SurveyForm extends React.Component {
     })
   }
   submitSurvey = () => {
+    this.setState({
+      validate: true
+    })
+    if (Object.keys(this.state.answers).length !== Object.keys(this.state.surveyForm.surveyForm).length) {
+      return;
+    }
+    let submit = true;
+    Object.values(this.state.answers).forEach(ans => {
+      if (ans === "") {
+        submit = false;
+      }
+    })
+    if (!submit) {
+      return;
+    }
+
     const surveyEntry = {
       'userName': this.state.userName,
       'surveyName': this.state.surveyForm.surveyName,
@@ -56,7 +73,8 @@ export default class SurveyForm extends React.Component {
   addToState = (event) => {
     if (event.target.name === "userName") {
       this.setState({
-        userName: event.target.value
+        userName: event.target.value,
+        validate: false
       })
       return;
     }
@@ -73,7 +91,8 @@ export default class SurveyForm extends React.Component {
     const answer = this.state.answers
     answer[name] = event[0]
     this.setState({
-      answers: answer
+      answers: answer,
+      validate: false
     })
   }
 
@@ -81,15 +100,19 @@ export default class SurveyForm extends React.Component {
     const answer = this.state.answers
     answer[name] = value
     this.setState({
-      answers: answer
+      answers: answer,
+      validate: false
     })
 
   }
   AddRadioQuestion = (QuestionObject, index) => {
-
-    const Question = (<div className="RadioOption">
-      <ListGroupItem className="p-0 px-3 pt-3">
-        <strong className="text d-block my-2">{QuestionObject.question}</strong>
+    let QuestionClass = ""
+    if (this.state.validate) {
+      QuestionClass = this.state.answers[index] !== "" && this.state.answers[index] ? "" : "InvalidEntry"
+    }
+    const Question = (<div className="RadioOption p-3">
+      <ListGroupItem className="p-0 ">
+        <strong className={"text d-block my-2 " + QuestionClass}>{QuestionObject.question}</strong>
         <Row>
           <Col sm="12" md="8" className="mb-3">
             <fieldset >
@@ -111,9 +134,13 @@ export default class SurveyForm extends React.Component {
     return Question
   }
   AddSliderQuestion = (QuestionObject, index) => {
+    let QuestionClass = ""
+    if (this.state.validate) {
+      QuestionClass = this.state.answers[index] !== "" && this.state.answers[index] ? "" : "InvalidEntry"
+    }
     const value = this.state.answers[index] > 0 ? this.state.answers[index] : 0
     const Question = (<ListGroupItem className="p-3">
-      <strong className="text d-block my-2">{QuestionObject.question}</strong>
+      <strong className={"text d-block my-2 " + QuestionClass}>{QuestionObject.question}</strong>
       <Col sm="12" md="8" className="mb-3">
         <Slider
           onSlide={(e) => this.addToSlide(index, e)}
@@ -132,8 +159,12 @@ export default class SurveyForm extends React.Component {
     return Question
   }
   AddDropDownQuestion = (QuestionObject, index) => {
+    let QuestionClass = ""
+    if (this.state.validate) {
+      QuestionClass = this.state.answers[index] !== "" && this.state.answers[index] ? "" : "InvalidEntry"
+    }
     const Question = (<ListGroupItem className="p-3">
-      <strong className="text d-block my-2">{QuestionObject.question}</strong>
+      <strong className={"text d-block my-2 " + QuestionClass}>{QuestionObject.question}</strong>
       <FormSelect id="feInputState" placeholder='Select Option' name={index} onChange={this.addToState} >
         {
           QuestionObject.options.split(",").map(option => {
@@ -147,9 +178,13 @@ export default class SurveyForm extends React.Component {
 
 
   AddTextQuestion = (QuestionObject, index) => {
+    let QuestionClass = ""
+    if (this.state.validate) {
+      QuestionClass = this.state.answers[index] !== "" && this.state.answers[index] ? "" : "InvalidEntry"
+    }
     const Question = (<ListGroupItem className="p-3">
       <FormGroup>
-        <label htmlFor="feInputAddress">{QuestionObject.question}</label>
+        <label htmlFor="feInputAddress" className={QuestionClass}>{QuestionObject.question}</label>
         <FormInput id="feInputAddress" name={index} onChange={this.addToState} placeholder="1234 Main St" />
       </FormGroup>
     </ListGroupItem>);

@@ -25,7 +25,8 @@ export default class AddNewSurvey extends React.Component {
     this.state = {
       surveyForm: {},
       answers: {},
-      surveyEntries: []
+      surveyEntries: [],
+
     };
   }
 
