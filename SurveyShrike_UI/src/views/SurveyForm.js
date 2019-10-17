@@ -23,15 +23,15 @@ import { getSurvey, fillForm } from '../assets/form';
 export default class SurveyForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       // First list of posts.
       surveyForm: {},
       answers: {},
       userName: "",
-      validate: false
+      validate: false,
     };
   }
+
 
   componentDidMount = () => {
     const search = window.location.search;
@@ -193,7 +193,18 @@ export default class SurveyForm extends React.Component {
     return Question
   }
 
+
+
+
   render() {
+    let userNameClass = ""
+    if (this.state.validate) {
+      if (this.state.userName === "") {
+        userNameClass = "Invalid"
+      }
+    }
+
+
     return (
       <div>
         <Container fluid className="main-content-container px-4">
@@ -204,8 +215,6 @@ export default class SurveyForm extends React.Component {
               className="text-sm-left"
             />
           </Row>
-
-
           <Row>
             <Col lg="8" className="mb-4">
               <Card small className="mb-4">
@@ -216,7 +225,7 @@ export default class SurveyForm extends React.Component {
                 <ListGroup flush>
 
                   <ListGroupItem className="p-0 px-3 pt-3">
-                    <FormInput size="lg" className="mb-3 ml-1 mr-3" name="userName" onChange={this.addToState} placeholder="Your Name" />
+                    <FormInput size="lg" className={"mb-3 ml-1 mr-3 " + userNameClass} name="userName" onChange={this.addToState} placeholder="Your Name" />
                   </ListGroupItem>
 
                   {
@@ -242,7 +251,7 @@ export default class SurveyForm extends React.Component {
                       <Col>
                         <Button theme="primary" className="mb-2 mr-2" onClick={this.submitSurvey}>
                           Submit</Button>
-                        <Button theme="danger" className="mb-2 mr-2">
+                        <Button theme="danger" className="mb-2 mr-2" onClick={this.infoClick}>
                           Cancel</Button>
                       </Col>
                     </Row>
