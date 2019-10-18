@@ -89,9 +89,8 @@ export default class AddNewSurvey extends React.Component {
       'surveyDescription': this.state.surveyDescription,
       'surveyForm': surveyForm
     }
-    console.log("response")
     createForm(surveyObject).then(response => {
-      console.log(response)
+
       if (!response.ok) {
         this.toastObj.show(this.toasts[2]);
       }
@@ -211,7 +210,6 @@ export default class AddNewSurvey extends React.Component {
       this.props.history.push("/login");
 
     }
-    console.log(!isNullOrUndefined(this.toastObj))
     document.addEventListener('click', function (e) {
       if (!isNullOrUndefined(this.toastObj) & e.target.name !== "submitBtn") {
         this.toastObj.hide('All');

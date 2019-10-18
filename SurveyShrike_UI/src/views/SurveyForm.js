@@ -18,9 +18,20 @@ import {
 import PageTitle from "../components/common/PageTitle";
 
 import { getSurvey, fillForm } from '../assets/form';
-
+import { isNullOrUndefined } from '@syncfusion/ej2-base';
+import { ToastComponent } from '@syncfusion/ej2-react-notifications';
 
 export default class SurveyForm extends React.Component {
+  toast = React.createRef();
+  toastObj;
+  position = { X: 'Right', Y: 'Bottom' };
+  toasts = [
+    { title: 'Warning!', content: 'Please Fill all the details', cssClass: 'e-toast-warning', icon: 'e-warning toast-icons' },
+    { title: 'Success!', content: 'Survey has been successfully filled', cssClass: 'e-toast-success', icon: 'e-success toast-icons' },
+    { title: 'Error!', content: 'User has already filled the survey', cssClass: 'e-toast-danger', icon: 'e-error toast-icons' },
+    { title: 'Information!', content: 'Please read the comments carefully.', cssClass: 'e-toast-info', icon: 'e-info toast-icons' }
+  ];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +61,9 @@ export default class SurveyForm extends React.Component {
     this.setState({
       validate: true
     })
+
     if (Object.keys(this.state.answers).length !== Object.keys(this.state.surveyForm.surveyForm).length) {
+      this.toastObj.show(this.toasts[0]);
       return;
     }
     let submit = true;
@@ -60,6 +73,7 @@ export default class SurveyForm extends React.Component {
       }
     })
     if (!submit) {
+      this.toastObj.show(this.toasts[0]);
       return;
     }
 
@@ -68,7 +82,15 @@ export default class SurveyForm extends React.Component {
       'surveyName': this.state.surveyForm.surveyName,
       'entryForm': this.state.answers
     }
-    fillForm(surveyEntry)
+    fillForm(surveyEntry).then(response => {
+
+      if (!response.ok) {
+        this.toastObj.show(this.toasts[2]);
+      }
+      else {
+        this.toastObj.show(this.toasts[1]);
+      }
+    })
   }
   addToState = (event) => {
     if (event.target.name === "userName") {
@@ -194,7 +216,9 @@ export default class SurveyForm extends React.Component {
   }
 
 
-
+  closeWindow() {
+    window.open('', '_parent', '').close()
+  }
 
   render() {
     let userNameClass = ""
@@ -204,9 +228,16 @@ export default class SurveyForm extends React.Component {
       }
     }
 
+    document.addEventListener('click', function (e) {
+      if (!isNullOrUndefined(this.toastObj) & e.target.name !== "submitBtn") {
+        this.toastObj.hide('All');
+      }
+    }.bind(this));
 
     return (
       <div>
+        <ToastComponent ref={(toast) => { this.toastObj = toast }} id='toast_type' position={this.position}></ToastComponent>
+
         <Container fluid className="main-content-container px-4">
           <Row noGutters className="page-header py-4">
             <PageTitle
@@ -249,10 +280,10 @@ export default class SurveyForm extends React.Component {
                   <ListGroupItem className="p-3">
                     <Row>
                       <Col>
-                        <Button theme="primary" className="mb-2 mr-2" onClick={this.submitSurvey}>
+                        <Button theme="primary" className="mb-2 mr-2" onClick={this.submitSurvey} name="submitBtn">
                           Submit</Button>
-                        <Button theme="danger" className="mb-2 mr-2" onClick={this.infoClick}>
-                          Cancel</Button>
+                        <Button theme="danger" className="mb-2 mr-2" onClick={this.closeWindow}>
+                          Close</Button>
                       </Col>
                     </Row>
                   </ListGroupItem>
@@ -263,7 +294,7 @@ export default class SurveyForm extends React.Component {
             </Col>
           </Row>
         </Container>
-      </div>
+      </div >
     )
   }
 };
