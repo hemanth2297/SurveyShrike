@@ -21,9 +21,22 @@ import { createForm } from '../assets/form';
 import PageTitle from "../components/common/PageTitle";
 import AddQuestion from "../components/add-new-post/AddQuestion";
 import SidebarCategories from "../components/add-new-post/SidebarCategories";
+// import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
+import { isNullOrUndefined } from '@syncfusion/ej2-base';
+import { ToastComponent } from '@syncfusion/ej2-react-notifications';
 
 
 export default class AddNewSurvey extends React.Component {
+  toast = React.createRef();
+  toastObj;
+  position = { X: 'Right', Y: 'Bottom' };
+  toasts = [
+    { title: 'Warning!', content: 'Please Fill all the details', cssClass: 'e-toast-warning', icon: 'e-warning toast-icons' },
+    { title: 'Success!', content: 'Survey has been successfully created', cssClass: 'e-toast-success', icon: 'e-success toast-icons' },
+    { title: 'Error!', content: 'Survey Name already Exists', cssClass: 'e-toast-danger', icon: 'e-error toast-icons' },
+    { title: 'Information!', content: 'Please read the comments carefully.', cssClass: 'e-toast-info', icon: 'e-info toast-icons' }
+  ];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -40,6 +53,8 @@ export default class AddNewSurvey extends React.Component {
       validate: false,
     };
   }
+
+
 
   validate = () => {
     if (this.state.question === "") {
@@ -59,7 +74,11 @@ export default class AddNewSurvey extends React.Component {
   }
 
   createSurvey = () => {
-    console.log(localStorage.getItem('userName'))
+
+    if (this.state.surveyName === "" || this.state.surveyDescription === "" || this.state.surveyQuestions.length === 0) {
+      this.toastObj.show(this.toasts[0]);
+      return;
+    }
     const surveyForm = {}
     this.state.surveyQuestions.map((value, index) =>
       surveyForm[index] = value
@@ -70,7 +89,16 @@ export default class AddNewSurvey extends React.Component {
       'surveyDescription': this.state.surveyDescription,
       'surveyForm': surveyForm
     }
-    createForm(surveyObject)
+    console.log("response")
+    createForm(surveyObject).then(response => {
+      console.log(response)
+      if (!response.ok) {
+        this.toastObj.show(this.toasts[2]);
+      }
+      else {
+        this.toastObj.show(this.toasts[1]);
+      }
+    })
   }
   addQuestion = () => {
     if (!this.validate()) {
@@ -176,81 +204,94 @@ export default class AddNewSurvey extends React.Component {
     }
 
   }
+
+
   render() {
     if (localStorage.getItem('access_token') === null) {
       this.props.history.push("/login");
 
     }
+    console.log(!isNullOrUndefined(this.toastObj))
+    document.addEventListener('click', function (e) {
+      if (!isNullOrUndefined(this.toastObj) & e.target.name !== "submitBtn") {
+        this.toastObj.hide('All');
+      }
+    }.bind(this));
+
     return (
-      <Container fluid className="main-content-container px-4 pb-4">
-        {/* Page Header */}
-        <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="Add New Survey" subtitle="Blog Posts" className="text-sm-left" />
-        </Row>
 
-        <Row>
-          <Col lg="9" md="8">
-            <Row>
-              <Col lg="12" className="mb-4">
-                <Card small className="mb-4">
-                  <CardHeader className="border-bottom">
-                    <h6 className="m-0">Form Inputs</h6>
-                  </CardHeader>
+      <div>
+        <ToastComponent ref={(toast) => { this.toastObj = toast }} id='toast_type' position={this.position}></ToastComponent>
+        <Container fluid className="main-content-container px-4 pb-4">
+          {/* Page Header */}
+          <Row noGutters className="page-header py-4">
+            <PageTitle sm="4" title="Add New Survey" subtitle="Blog Posts" className="text-sm-left" />
+          </Row>
 
-                  <ListGroup flush>
-                    <ListGroupItem className="p-0 px-3 pt-3">
-                      <FormInput size="lg" className="mb-3 ml-1 mr-3" name="surveyName" onChange={this.addToState} placeholder="Your Post Title" />
-                      <FormInput size="lg" className="mb-3 ml-1 mr-3" name="surveyDescription" onChange={this.addToState} placeholder="Your Post Description" />
-                    </ListGroupItem>
+          <Row>
+            <Col lg="9" md="8">
+              <Row>
+                <Col lg="12" className="mb-4">
+                  <Card small className="mb-4">
+                    <CardHeader className="border-bottom">
+                      <h6 className="m-0">Form Inputs</h6>
+                    </CardHeader>
 
-                    {this.state.surveyQuestions.map(obj => {
-                      if (obj.questionType === "Text") {
-                        return this.AddTextQuestion(obj)
-                      }
-                      if (obj.questionType === "Radio") {
-                        return this.AddRadioQuestion(obj)
-                      }
-                      if (obj.questionType === "DropDown") {
-                        return this.AddDropDownQuestion(obj)
-                      }
-                      if (obj.questionType === "Slider") {
-                        return this.AddSliderQuestion(obj)
-                      }
-                      return ""
-                    })}
+                    <ListGroup flush>
+                      <ListGroupItem className="p-0 px-3 pt-3">
+                        <FormInput size="lg" className="mb-3 ml-1 mr-3" name="surveyName" onChange={this.addToState} placeholder="Your Post Title" />
+                        <FormInput size="lg" className="mb-3 ml-1 mr-3" name="surveyDescription" onChange={this.addToState} placeholder="Your Post Description" />
+                      </ListGroupItem>
+
+                      {this.state.surveyQuestions.map(obj => {
+                        if (obj.questionType === "Text") {
+                          return this.AddTextQuestion(obj)
+                        }
+                        if (obj.questionType === "Radio") {
+                          return this.AddRadioQuestion(obj)
+                        }
+                        if (obj.questionType === "DropDown") {
+                          return this.AddDropDownQuestion(obj)
+                        }
+                        if (obj.questionType === "Slider") {
+                          return this.AddSliderQuestion(obj)
+                        }
+                        return ""
+                      })}
 
 
-                    <ListGroupItem className="p-3">
-                      <Row>
-                        <Col>
-                          <Button theme="primary" className="mb-2 mr-2" onClick={this.createSurvey}>
-                            Submit</Button>
-                          <Button theme="danger" className="mb-2 mr-2">
-                            Cancel</Button>
-                        </Col>
-                      </Row>
-                    </ListGroupItem>
+                      <ListGroupItem className="p-3">
+                        <Row>
+                          <Col>
+                            <Button ref={(scope) => { this.submitBtn = scope }} theme="primary" className="mb-2 mr-2" onClick={this.createSurvey} name="submitBtn">
+                              Submit</Button>
+                            <Button theme="danger" className="mb-2 mr-2">
+                              Cancel</Button>
+                          </Col>
+                        </Row>
+                      </ListGroupItem>
 
-                  </ListGroup>
-                </Card>
+                    </ListGroup>
+                  </Card>
 
-              </Col>
-            </Row>
-          </Col>
+                </Col>
+              </Row>
+            </Col>
 
-          {/* Sidebar Widgets */}
-          <Col lg="3" md="12">
-            <AddQuestion
-              addToState={this.addToState}
-              disableOptions={this.state.disableOptions}
-              disableRange={this.state.disaleRange}
-              addQuestion={this.addQuestion}
-              {...this.state}
-            ></AddQuestion>
-            <SidebarCategories />
-          </Col>
-        </Row>
-      </Container>
+            {/* Sidebar Widgets */}
+            <Col lg="3" md="12">
+              <AddQuestion
+                addToState={this.addToState}
+                disableOptions={this.state.disableOptions}
+                disableRange={this.state.disaleRange}
+                addQuestion={this.addQuestion}
+                {...this.state}
+              ></AddQuestion>
+              <SidebarCategories />
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
   }
 };

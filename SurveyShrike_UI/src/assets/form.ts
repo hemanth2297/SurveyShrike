@@ -88,6 +88,7 @@ export async function createForm(surveyObject: any) {
             body: JSON.stringify(surveyObject)
         };
         const response = await fetch(surveyUrl + "createSurvey", requestOptions);
+        console.log(response)
         return handleResponse(response);
 
     }
@@ -132,14 +133,15 @@ export async function fillForm(surveyEntry: any) {
 function handleResponse(response: any) {
     return response.text().then((text: any) => {
         const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                console.log("test")
-            }
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
-        }
+        data.ok = response.ok
+        // if (!response.ok) {
+        //     if (response.status === 401) {
+        //         // auto logout if 401 response returned from api
+        //         console.log("test")
+        //     }
+        //     const error = (data && data.message) || response.statusText;
+        //     return Promise.reject(error);
+        // }
         return data;
     });
 }
