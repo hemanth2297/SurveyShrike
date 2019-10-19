@@ -37,17 +37,6 @@ export async function logout() {
     const access_token = localStorage.getItem('access_token')
 
     if (access_token) {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': access_token
-            },
-        };
-        const url = "http://127.0.0.1:5001/logout"
-        let response = await fetch(url, requestOptions);
-        console.log(response)
-        response = await handleResponse(response);
 
         localStorage.removeItem('userName');
         localStorage.removeItem('access_token');

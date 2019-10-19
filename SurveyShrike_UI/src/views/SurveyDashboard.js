@@ -28,7 +28,6 @@ class BlogPosts extends React.Component {
 
 
   componentDidMount = () => {
-    console.log(localStorage.getItem('access_token'))
     if (localStorage.getItem('access_token') === null) {
       this.props.history.push("/login");
       return
@@ -41,9 +40,12 @@ class BlogPosts extends React.Component {
       }
 
       for (let i = 0; i < response.results.length; i++) {
-        response["results"][i]["date"] = "29 February 2019"
+        const min = 1;
+        const max = 9;
+        const rand = parseInt(min + Math.random() * (max - min))
+        response["results"][i]["backgroundImage"] = require("../images/content-management/" + rand + ".jpeg")
+        response["results"][i]["date"] = "22 October 2019"
         response["results"][i]["authorAvatar"] = require("../images/avatars/3.jpg")
-        response["results"][i]["backgroundImage"] = require("../images/content-management/4.jpeg")
         response["results"][i]["category"] = "Business"
         response["results"][i]["categoryTheme"] = "warning"
       }

@@ -39,9 +39,12 @@ class BlogPosts extends React.Component {
         return;
       }
       for (let i = 0; i < response.results.length; i++) {
+        const min = 1;
+        const max = 9;
+        const rand = parseInt(min + Math.random() * (max - min))
+        response["results"][i]["backgroundImage"] = require("../images/content-management/" + rand + ".jpeg")
         response["results"][i]["date"] = "29 February 2019"
         response["results"][i]["authorAvatar"] = require("../images/avatars/3.jpg")
-        response["results"][i]["backgroundImage"] = require("../images/content-management/4.jpeg")
         response["results"][i]["category"] = "Business"
         response["results"][i]["categoryTheme"] = "warning"
       }
