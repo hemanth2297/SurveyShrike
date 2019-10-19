@@ -24,15 +24,25 @@ Survey Shrike is Used to Create the Survey Forms. Owner can view all the survey 
 
 Install Python >=2.7 ( Make Sure the ports 5001 & 5002 are free)
 
+
+
+Install all the requirements for the project
+```shell
+$ pip install requirements.txt
+```
 > Start the Aunthentication API
 
+Go to OAuth folder and start Authorization API
 ```shell
-$ python setup.py
+$ cd SurveyShrike_API/OAuth
 $ pyhton Authentication.py
 ```
+
 > Start the Survey Shrike API 
+Go to SurveyShrike folder and start SurveyShrike API
 
 ```shell
+$ cd ../SurveyShrike
 $ pyhton SurveyShrike.py
 ```
 

@@ -1,35 +1,16 @@
 // Step 1 - Include react
 import React from 'react';
-// import ReactDOM from 'react-dom';
-
-// Step 2 - Include the react-fusioncharts component
 import ReactFC from 'react-fusioncharts';
-
-// Step 3 - Include the fusioncharts library
 import FusionCharts from 'fusioncharts';
-
-// Step 4 - Include the chart type
 import Pie2D from 'fusioncharts/fusioncharts.charts';
-
-// Step 5 - Include the theme as fusion
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-
 import { Col, FormRadio, } from "shards-react";
-
-// Step 6 - Adding the chart and theme as dependency to the core fusioncharts
 ReactFC.fcRoot(FusionCharts, Pie2D, FusionTheme);
 
-// Step 7 - Creating the JSON object to store the chart configurations
-// const chartConfigs = {
-//     type: 'pie2d',// The chart type
-//     width: '400', // Width of the chart
-//     height: '500', // Height of the chart
-//     dataFormat: 'json', // Data type
 
-// };
 
-// Step 9 - Creating the DOM element to pass the react-fusioncharts component
-class App extends React.Component {
+// This Component is used to view Pie Chart for Radio and DrillDown Questions
+class FusionCharts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,6 +28,8 @@ class App extends React.Component {
             }
         };
     }
+
+    // Converting API data to render into Fusion Charts
     convertTodata = (data) => {
         console.log(data)
         let finalData = []
@@ -62,6 +45,8 @@ class App extends React.Component {
         console.log(finalData)
         return finalData
     }
+
+    // Setting intial view for the stats
     componentDidMount = () => {
         let datasource = this.state.dataSource
         datasource.data = this.convertTodata(this.props.statsRender["total"])
@@ -71,6 +56,8 @@ class App extends React.Component {
 
         })
     }
+
+    // Adding to State on change of the form Value
     addToState = (event) => {
         let datasource = this.state.dataSource
         if (event.target.name === "gender") {
@@ -110,4 +97,4 @@ class App extends React.Component {
     }
 }
 
-export default App
+export default FusionCharts
