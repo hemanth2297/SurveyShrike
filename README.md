@@ -30,16 +30,17 @@ Install all the requirements for the project
 ```shell
 $ pip install requirements.txt
 ```
-> Start the Aunthentication API
 
-Go to OAuth folder and start Authorization API
+
+Go to OAuth folder 
+> Start the Aunthentication API
 ```shell
-$ cd SurveyShrike_API/OAuth
+$ cd SurveyShrike_API/Oauth
 $ pyhton Authentication.py
 ```
 
+Go to SurveyShrike folder
 > Start the Survey Shrike API 
-Go to SurveyShrike folder and start SurveyShrike API
 
 ```shell
 $ cd ../SurveyShrike
