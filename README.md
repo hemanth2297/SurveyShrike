@@ -1,9 +1,9 @@
 
-# ${1:SurveyShrike}
+# SurveyShrike
 
 Survey Shrike is Used to Create the Survey Forms. Owner can view all the survey inputs by users.
 
-## Table of Contents (Optional)
+## Table of Contents 
 
 - [Installation](#installation)
 - [How Survey Shrike Works ?](#How)
@@ -16,11 +16,11 @@ Survey Shrike is Used to Create the Survey Forms. Owner can view all the survey 
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/hemanth2297/SurveyShrike.git`
+- Clone this repo to your local machine using `git clone https://github.com/hemanth2297/SurveyShrike.git`
 
 ### Setup
 
-#### BackEnd API
+- #### BackEnd API
 
 Install Python >=2.7 ( Make Sure the ports 5001 & 5002 are free)
 
@@ -36,9 +36,9 @@ $ pyhton Authentication.py
 $ pyhton SurveyShrike.py
 ```
 
-#### FrontEnd Server
+- #### FrontEnd Server
 
-Install npm and its depindencies
+Install npm and its depndencies
 
 > Now install the project dependencies
 

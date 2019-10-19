@@ -35,6 +35,11 @@ class BlogPosts extends React.Component {
     }
 
     getAllSurvyes().then(response => {
+      if (!response.ok) {
+        this.props.history.push("/sessionExpired");
+        return;
+      }
+
       for (let i = 0; i < response.results.length; i++) {
         response["results"][i]["date"] = "29 February 2019"
         response["results"][i]["authorAvatar"] = require("../images/avatars/3.jpg")

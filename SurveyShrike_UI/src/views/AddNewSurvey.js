@@ -90,7 +90,11 @@ export default class AddNewSurvey extends React.Component {
       'surveyForm': surveyForm
     }
     createForm(surveyObject).then(response => {
-
+      console.log(response)
+      if (response.status === 401) {
+        this.props.history.push("/sessionExpired");
+        return;
+      }
       if (!response.ok) {
         this.toastObj.show(this.toasts[2]);
       }

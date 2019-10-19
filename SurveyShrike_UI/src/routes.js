@@ -73,7 +73,7 @@ export default [
     component: SurveyEntries
   },
   {
-    path: "/errors",
+    path: "/sessionExpired",
     layout: DefaultLayout,
     component: Errors
   },

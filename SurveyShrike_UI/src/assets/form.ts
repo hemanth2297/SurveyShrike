@@ -1,30 +1,5 @@
 
-const surveyTemplate = {
-    'userName': "Hemanth",
-    'surveyName': "test3",
-    'surveyForm': {
-        "0": {
-            "qsn": "qsn1",
-            "type": "radio",
-            "options": ["a", "b"]
-        },
-        "1": {
-            "qsn": "qsn2",
-            "type": "texxt",
-            "options": ["a", "c"]
-        }
 
-    }
-}
-
-// const surveyEntry = {
-//     'userName': "Hemanth",
-//     'surveyName': "test",
-//     'entryForm': {
-//         "0": "ans1",
-//         "1": "ans1"
-//     }
-// }
 const surveyUrl = "http://127.0.0.1:5002/"
 
 export async function getAllSurvyes() {
@@ -38,7 +13,8 @@ export async function getAllSurvyes() {
             },
         };
         const response = await fetch(surveyUrl + "getAllSurveys", requestOptions);
-        return handleResponse(response);
+        const responseJson = handleResponse(response);
+        return responseJson;
     }
 }
 
@@ -56,7 +32,8 @@ export async function getUserSurvyes() {
             body: JSON.stringify({ "userName": userName })
         };
         const response = await fetch(surveyUrl + "getUserSurveys", requestOptions);
-        return handleResponse(response);
+        const responseJson = handleResponse(response);
+        return responseJson;
     }
 }
 
@@ -72,7 +49,8 @@ export async function getSurveyEntries(surveyName: any) {
             body: JSON.stringify({ "surveyName": surveyName })
         };
         const response = await fetch(surveyUrl + "getSurveyEntries", requestOptions);
-        return handleResponse(response);
+        const responseJson = handleResponse(response);
+        return responseJson;
     }
 }
 
@@ -88,8 +66,8 @@ export async function createForm(surveyObject: any) {
             body: JSON.stringify(surveyObject)
         };
         const response = await fetch(surveyUrl + "createSurvey", requestOptions);
-        console.log(response)
-        return handleResponse(response);
+        const responseJson = handleResponse(response);
+        return responseJson;
 
     }
 }
@@ -106,7 +84,6 @@ export async function getSurvey(surveyName: any) {
             body: JSON.stringify({ "surveyName": surveyName })
         };
         const response = await fetch(surveyUrl + "getSurvey", requestOptions);
-        console.log(response)
         return handleResponse(response);
 
     }
@@ -134,6 +111,7 @@ function handleResponse(response: any) {
     return response.text().then((text: any) => {
         const data = text && JSON.parse(text);
         data.ok = response.ok
+        data.status = response.status
         // if (!response.ok) {
         //     if (response.status === 401) {
         //         // auto logout if 401 response returned from api

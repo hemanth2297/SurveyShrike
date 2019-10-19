@@ -74,7 +74,10 @@ export default class AddNewSurvey extends React.Component {
     })
 
     getSurveyEntries(surveyName).then(response => {
-
+      if (!response.ok) {
+        this.props.history.push("/sessionExpired");
+        return;
+      }
       this.setState({
         surveyEntries: response.results,
         surveyStats: response.stats
