@@ -21,6 +21,8 @@ import SurveyUsers from "../components/add-new-post/SurveyUsers";
 
 import { getSurvey, getSurveyEntries } from '../assets/form';
 import FusionCharts from "./FusionCharts"
+import AnswerTable from "./AnswerTable"
+import DialChart from "./DialChart"
 
 export default class AddNewSurvey extends React.Component {
   constructor(props) {
@@ -33,7 +35,13 @@ export default class AddNewSurvey extends React.Component {
       gender: "",
       surveyStats: {},
       statsRender: {},
-      question: ""
+      question: "",
+      openText: false,
+      openSlider: false,
+      textqsnIndex: 0,
+      rangeTo: 0,
+      rangeFrom: 0,
+      avgValue: {}
     };
   }
 
@@ -49,7 +57,6 @@ export default class AddNewSurvey extends React.Component {
       }
 
     }
-    console.log(this.state.answers)
   }
 
   componentDidMount = () => {
@@ -58,7 +65,7 @@ export default class AddNewSurvey extends React.Component {
     const surveyName = params.get("surveyName")
 
     getSurvey(surveyName).then(response => {
-      console.log(response)
+
       this.setState({
         surveyForm: response
       })
@@ -66,12 +73,12 @@ export default class AddNewSurvey extends React.Component {
     })
 
     getSurveyEntries(surveyName).then(response => {
-      console.log(response)
+
       this.setState({
         surveyEntries: response.results,
         surveyStats: response.stats
       })
-      console.log(response)
+
     })
 
   }
@@ -102,6 +109,8 @@ export default class AddNewSurvey extends React.Component {
     const value = this.state.answers[index] > 0 ? this.state.answers[index] : 0
     const Question = (<ListGroupItem className="p-3">
       <strong className="text d-block my-2">{QuestionObject.question}</strong>
+      <i class="fas fa-chart-pie" onClick={() => this.toggleSlider(QuestionObject.question, index, parseInt(QuestionObject.rangeFrom), parseInt(QuestionObject.rangeTo))} style={{ fontSize: "18px", color: "blue", float: 'right' }} />
+
       <Col sm="12" md="8" className="mb-3">
         <Slider
           connect={[true, false]}
@@ -143,11 +152,53 @@ export default class AddNewSurvey extends React.Component {
     });
   }
 
+  toggleSlider = (question, index, rangeFrom, rangeTo) => {
+    console.log(question)
+    if (question) {
+      const stats = this.state.surveyStats[index]
+      let total = { "total": 0, "Male": 0, "Female": 0 }
+      let val = { "total": 0, "Male": 0, "Female": 0 }
+      let mean = { "total": 0, "Male": 0, "Female": 0 }
+
+      console.log(stats)
+
+      Object.entries(stats).forEach(([key, value]) => {
+        Object.entries(value).forEach(([key2, value2]) => {
+          total[key] += parseInt(key2) * parseInt(value2)
+          val[key] += value2
+        })
+      })
+      Object.entries(total).forEach(([key, value]) => {
+        mean[key] = total[key] / val[key]
+      })
+      this.setState({
+        question: question,
+        textqsnIndex: index,
+        rangeFrom: rangeFrom,
+        rangeTo: rangeTo,
+        avgValue: mean
+      });
+    }
+    this.setState({
+      openSlider: !this.state.openSlider,
+
+    });
+  }
+
+
+  toggleText = (question, index) => {
+    this.setState({
+      openText: !this.state.openText,
+      question: question,
+      textqsnIndex: index
+    });
+  }
+
   AddTextQuestion = (QuestionObject, index) => {
     const Question = (<ListGroupItem className="p-3">
       <FormGroup>
         <label htmlFor="feInputAddress">{QuestionObject.question}</label>
-        <i class="fas fa-chart-pie" onClick={this.toggle} style={{ fontSize: "18px", color: "blue", float: 'right' }} />
+        <i class="fas fa-chart-pie" onClick={() => this.toggleText(QuestionObject.question, index)} style={{ fontSize: "18px", color: "blue", float: 'right' }} />
         <FormInput id="feInputAddress" value={this.state.answers[index] ? this.state.answers[index] : ""} />
       </FormGroup>
     </ListGroupItem>);
@@ -162,12 +213,37 @@ export default class AddNewSurvey extends React.Component {
 
       <Container fluid className="main-content-container px-4 pb-4">
         <Modal open={this.state.open} toggle={this.toggle}>
-          <ModalHeader>Header</ModalHeader>
+          <ModalHeader>Statistics</ModalHeader>
           <ModalBody>
             <FusionCharts
               statsRender={this.state.statsRender}
               question={this.state.question}
             ></FusionCharts>
+
+          </ModalBody>
+        </Modal>
+
+        <Modal open={this.state.openText} toggle={this.toggleText}>
+          <ModalHeader>Statistics</ModalHeader>
+          <ModalBody>
+            <AnswerTable
+              surveyEntries={this.state.surveyEntries}
+              textqsnIndex={this.state.textqsnIndex}
+              question={this.state.question}
+            ></AnswerTable>
+
+          </ModalBody>
+        </Modal>
+
+        <Modal open={this.state.openSlider} toggle={this.toggleSlider}>
+          <ModalHeader>Statistics</ModalHeader>
+          <ModalBody>
+            <DialChart
+              rangeFrom={parseInt(this.state.rangeFrom)}
+              rangeTo={parseInt(this.state.rangeTo)}
+              avgValue={this.state.avgValue}
+              question={this.state.question}
+            ></DialChart>
 
           </ModalBody>
         </Modal>
@@ -245,7 +321,7 @@ export default class AddNewSurvey extends React.Component {
             </SurveyUsers>
           </Col>
         </Row>
-      </Container>
+      </Container >
     )
   }
 };
