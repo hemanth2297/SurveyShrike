@@ -15,9 +15,17 @@ import Logout from "./views/logout";
 import Register from './views/Register';
 import SurveyEntries from "./views/SurveyEntries";
 import UserSurveyDashoard from './views/UserSurveyDashoard';
-
+import FusionCharts from './views/FusionCharts';
+import Modal from './views/Modal';
 
 export default [
+
+  {
+    path: "/",
+    exact: true,
+    layout: DefaultLayout,
+    component: () => <Redirect to="/login" />
+  },
   {
     path: "/",
     exact: true,
@@ -28,6 +36,16 @@ export default [
     path: "/login",
     layout: DefaultLayout,
     component: Login
+  },
+  {
+    path: "/fus",
+    layout: DefaultLayout,
+    component: FusionCharts
+  },
+  {
+    path: "/modal",
+    layout: DefaultLayout,
+    component: Modal
   },
   {
     path: "/logout",

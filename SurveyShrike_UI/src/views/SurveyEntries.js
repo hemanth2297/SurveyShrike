@@ -14,10 +14,13 @@ import {
   FormSelect,
   Slider,
 } from "shards-react";
+
+import { Modal, ModalBody, ModalHeader } from "shards-react";
 import PageTitle from "../components/common/PageTitle";
 import SurveyUsers from "../components/add-new-post/SurveyUsers";
 
 import { getSurvey, getSurveyEntries } from '../assets/form';
+import FusionCharts from "./FusionCharts"
 
 export default class AddNewSurvey extends React.Component {
   constructor(props) {
@@ -26,7 +29,11 @@ export default class AddNewSurvey extends React.Component {
       surveyForm: {},
       answers: {},
       surveyEntries: [],
-
+      open: false,
+      gender: "",
+      surveyStats: {},
+      statsRender: {},
+      question: ""
     };
   }
 
@@ -36,7 +43,8 @@ export default class AddNewSurvey extends React.Component {
     for (const i in this.state.surveyEntries) {
       if (username === this.state.surveyEntries[i].userName) {
         this.setState({
-          answers: this.state.surveyEntries[i].entryForm
+          answers: this.state.surveyEntries[i].entryForm,
+          gender: this.state.surveyEntries[i].gender
         })
       }
 
@@ -60,7 +68,8 @@ export default class AddNewSurvey extends React.Component {
     getSurveyEntries(surveyName).then(response => {
       console.log(response)
       this.setState({
-        surveyEntries: response.results
+        surveyEntries: response.results,
+        surveyStats: response.stats
       })
       console.log(response)
     })
@@ -71,6 +80,7 @@ export default class AddNewSurvey extends React.Component {
     const Question = (<div className="RadioOption">
       <ListGroupItem className="p-0 px-3 pt-3">
         <strong className="text d-block my-2">{QuestionObject.question}</strong>
+        <i class="fas fa-chart-pie" onClick={() => this.toggle(QuestionObject.question, index)} style={{ fontSize: "18px", color: "blue", float: 'right' }} />
         <Row>
           <Col sm="12" md="8" className="mb-3">
             <fieldset >
@@ -111,6 +121,8 @@ export default class AddNewSurvey extends React.Component {
   AddDropDownQuestion = (QuestionObject, index) => {
     const Question = (<ListGroupItem className="p-3">
       <strong className="text d-block my-2">{QuestionObject.question}</strong>
+      <i class="fas fa-chart-pie" onClick={() => this.toggle(QuestionObject.question, index)} style={{ fontSize: "18px", color: "blue", float: 'right' }} />
+
       <FormSelect id="feInputState" placeholder='Select Option' value={this.state.answers[index] ? this.state.answers[index] : ""} >
         {
           QuestionObject.options.split(",").map(option => {
@@ -123,10 +135,19 @@ export default class AddNewSurvey extends React.Component {
   }
 
 
+  toggle = (question, index) => {
+    this.setState({
+      open: !this.state.open,
+      question: question,
+      statsRender: this.state.surveyStats[index]
+    });
+  }
+
   AddTextQuestion = (QuestionObject, index) => {
     const Question = (<ListGroupItem className="p-3">
       <FormGroup>
         <label htmlFor="feInputAddress">{QuestionObject.question}</label>
+        <i class="fas fa-chart-pie" onClick={this.toggle} style={{ fontSize: "18px", color: "blue", float: 'right' }} />
         <FormInput id="feInputAddress" value={this.state.answers[index] ? this.state.answers[index] : ""} />
       </FormGroup>
     </ListGroupItem>);
@@ -137,7 +158,19 @@ export default class AddNewSurvey extends React.Component {
   render() {
 
     return (
+
+
       <Container fluid className="main-content-container px-4 pb-4">
+        <Modal open={this.state.open} toggle={this.toggle}>
+          <ModalHeader>Header</ModalHeader>
+          <ModalBody>
+            <FusionCharts
+              statsRender={this.state.statsRender}
+              question={this.state.question}
+            ></FusionCharts>
+
+          </ModalBody>
+        </Modal>
         {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Survey Details" className="text-sm-left" />
@@ -153,6 +186,18 @@ export default class AddNewSurvey extends React.Component {
                   </CardHeader>
 
                   <ListGroup flush>
+
+                    <ListGroupItem className="p-0 px-3 pt-3">
+                      <strong className={"text d-block my-2 "}>Gender</strong>
+                      <Row>
+                        <Col sm="12" md="8" className="mb-3">
+                          <fieldset >
+                            <FormRadio inline name="gender" checked={this.state.gender === "Male"}>Male</FormRadio>
+                            <FormRadio inline name="gender" checked={this.state.gender === "Female"}>Female</FormRadio>
+                          </fieldset>
+                        </Col>
+                      </Row>
+                    </ListGroupItem>
 
                     {
                       this.state.surveyForm.surveyForm ?

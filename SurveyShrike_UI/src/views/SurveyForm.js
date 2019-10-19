@@ -39,6 +39,7 @@ export default class SurveyForm extends React.Component {
       surveyForm: {},
       answers: {},
       userName: "",
+      gender: "",
       validate: false,
     };
   }
@@ -61,7 +62,7 @@ export default class SurveyForm extends React.Component {
     this.setState({
       validate: true
     })
-
+    console.log(this.state.surveyForm.surveyForm, Object.keys(this.state.answers).length)
     if (Object.keys(this.state.answers).length !== Object.keys(this.state.surveyForm.surveyForm).length) {
       this.toastObj.show(this.toasts[0]);
       return;
@@ -79,6 +80,7 @@ export default class SurveyForm extends React.Component {
 
     const surveyEntry = {
       'userName': this.state.userName,
+      'gender': this.state.gender,
       'surveyName': this.state.surveyForm.surveyName,
       'entryForm': this.state.answers
     }
@@ -93,6 +95,7 @@ export default class SurveyForm extends React.Component {
     })
   }
   addToState = (event) => {
+    console.log(event.target.name, event.target.value)
     if (event.target.name === "userName") {
       this.setState({
         userName: event.target.value,
@@ -100,10 +103,18 @@ export default class SurveyForm extends React.Component {
       })
       return;
     }
+    if (event.target.name === "gender") {
+      this.setState({
+        gender: event.target.value,
+        validate: false
+      })
+      return;
+    }
     const answer = this.state.answers
     answer[event.target.name] = event.target.value
     this.setState({
-      answers: answer
+      answers: answer,
+      validate: false
     })
     console.log(this.state.answers)
   }
@@ -257,6 +268,19 @@ export default class SurveyForm extends React.Component {
 
                   <ListGroupItem className="p-0 px-3 pt-3">
                     <FormInput size="lg" className={"mb-3 ml-1 mr-3 " + userNameClass} name="userName" onChange={this.addToState} placeholder="Your Name" />
+                  </ListGroupItem>
+
+
+                  <ListGroupItem className="p-0 px-3 pt-3">
+                    <strong className={"text d-block my-2 "}>Gender</strong>
+                    <Row>
+                      <Col sm="12" md="8" className="mb-3">
+                        <fieldset >
+                          <FormRadio inline name="gender" value="Male" onChange={this.addToState}>Male</FormRadio>
+                          <FormRadio inline name="gender" value="Female" onChange={this.addToState}>Female</FormRadio>
+                        </fieldset>
+                      </Col>
+                    </Row>
                   </ListGroupItem>
 
                   {

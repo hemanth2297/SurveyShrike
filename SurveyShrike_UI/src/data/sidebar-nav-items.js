@@ -1,6 +1,11 @@
 export default function () {
   return [
     {
+      title: "Modal",
+      htmlBefore: '<i class="material-icons">vertical_split</i>',
+      to: "/modal",
+    },
+    {
       title: "User Dashboard",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: "/user-surveys",

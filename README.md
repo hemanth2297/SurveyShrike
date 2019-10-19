@@ -1,17 +1,16 @@
 ## SurveyShrike
 
-
-Want to improve your product and app store ratings? The SurveyMonkey Mobile Feedback SDK gives you all the tools you need to collect user feedback about your in-app experience.
+Survey Shrike is Used to Create the Survey Forms. Owner can view all the survey inputs by users.
 
 
 ### How It Works
 
 
-1. Log in to SurveyMonkey and create a survey asking users what improvements they want to see and how they’d rate your app
+1. Register and Login to SurveyShrike and go to Add new Survey page to Create a survey
 
-2. Integrate the survey into your mobile app using our [mobile SDK](http://help.surveymonkey.com/articles/en_US/kb/Mobile-SDK)
+2. Go to Add new Survey page to Create a survey. Share the link of survey to other Users
 
-3. Get product feedback in real time and prompt satisfied customers to rate you
+3. Open the Survey from [User Survey] to view the answers filled by each user
 
 
 ### Steps To Integrate
@@ -22,6 +21,6 @@ Download the [latest release](https://github.com/SurveyMonkey/surveymonkey-andro
 ```bash
 git clone https://github.com/SurveyMonkey/surveymonkey-android-sdk.git
 ```
-**OR**
+
 
 

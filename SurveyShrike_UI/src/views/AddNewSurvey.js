@@ -133,7 +133,7 @@ export default class AddNewSurvey extends React.Component {
 
               {
                 QuestionObject.options.split(",").map(option => {
-                  return <FormRadio>{option}</FormRadio>
+                  return <FormRadio inline>{option}</FormRadio>
                 })
               }
             </fieldset>
