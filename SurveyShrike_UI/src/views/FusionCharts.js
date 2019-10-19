@@ -73,12 +73,14 @@ class App extends React.Component {
     }
     addToState = (event) => {
         let datasource = this.state.dataSource
-        datasource.data = this.convertTodata(this.props.statsRender[event.target.value])
-        console.log(datasource)
-        this.setState({
-            datasource: datasource,
-            viewType: event.target.value
-        })
+        if (event.target.name === "gender") {
+            datasource.data = this.convertTodata(this.props.statsRender[event.target.value])
+            this.setState({
+                datasource: datasource,
+                viewType: event.target.value
+            })
+        }
+
     }
     render() {
         // chartConfigs.dataSource.data = this.state.data
@@ -96,9 +98,9 @@ class App extends React.Component {
 
                 <Col sm="12" md="8" className="mb-3 ml-4" width={400}>
                     <fieldset>
-                        <FormRadio inline value="total" onChange={this.addToState} checked={this.state.viewType === "total"}>Total</FormRadio>
-                        <FormRadio inline value="Male" onChange={this.addToState} checked={this.state.viewType === "Male"}>Male</FormRadio>
-                        <FormRadio inline value="Female" onChange={this.addToState} checked={this.state.viewType === "Female"}> Female</FormRadio>
+                        <FormRadio inline value="total" name='gender' onChange={this.addToState} checked={this.state.viewType === "total"}>Total</FormRadio>
+                        <FormRadio inline value="Male" name='gender' onChange={this.addToState} checked={this.state.viewType === "Male"}>Male</FormRadio>
+                        <FormRadio inline value="Female" name='gender' onChange={this.addToState} checked={this.state.viewType === "Female"}> Female</FormRadio>
                     </fieldset>
                 </Col>
 

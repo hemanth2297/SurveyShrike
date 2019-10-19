@@ -13,6 +13,7 @@ import {
   FormGroup,
   FormSelect,
   Slider,
+  CardImg
 } from "shards-react";
 
 import { Modal, ModalBody, ModalHeader } from "shards-react";
@@ -206,6 +207,22 @@ export default class AddNewSurvey extends React.Component {
 
     return Question
   }
+  AddUploadQuestion = (QuestionObject, index) => {
+
+    const img = this.state.answers[index] ?
+      (<CardImg style={{ width: "200px", height: "200px" }} src={this.state.answers[index]} alt="" />
+      ) : ""
+
+    const Question = (<ListGroupItem className="p-3">
+      <FormGroup>
+        <label inline-block htmlFor="feInputAddress">{QuestionObject.question}</label>
+        {img}
+      </FormGroup>
+    </ListGroupItem>);
+
+    return Question
+
+  }
   render() {
 
     return (
@@ -289,6 +306,9 @@ export default class AddNewSurvey extends React.Component {
                           }
                           if (obj.questionType === "Slider") {
                             return this.AddSliderQuestion(obj, index)
+                          }
+                          if (obj.questionType === "Upload") {
+                            return this.AddUploadQuestion(obj, index)
                           }
                           return ""
                         }) : ""

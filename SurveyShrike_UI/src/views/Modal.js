@@ -1,32 +1,36 @@
-import React from "react";
-import { Button, Modal, ModalBody, ModalHeader } from "shards-react";
-import FusionCharts from "./FusionCharts"
+import React from 'react';
 
-export default class BasicModalExample extends React.Component {
+export default class UploadPreview extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { open: false };
-        this.toggle = this.toggle.bind(this);
+        this.state = { file: null };
+        this.onChange = this.onChange.bind(this);
+        this.resetFile = this.resetFile.bind(this);
+    }
+    onChange = (event) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = () => {
+            this.setState({
+                file: reader.result
+            });
+        };
     }
 
-    toggle() {
-        this.setState({
-            open: !this.state.open
-        });
+    resetFile(event) {
+        event.preventDefault();
+        this.setState({ file: null });
     }
-
     render() {
-        const { open } = this.state;
         return (
             <div>
-                <Button onClick={this.toggle}>Click Me!</Button>
-                <Modal open={open} toggle={this.toggle}>
-                    <ModalHeader>Header</ModalHeader>
-                    <ModalBody>
-                        <FusionCharts></FusionCharts>
-
-                    </ModalBody>
-                </Modal>
+                <input type="file" onChange={this.onChange} />
+                {this.state.file && (
+                    <div style={{ textAlign: "center" }}>
+                        <button onClick={this.resetFile}>Remove File</button>
+                    </div>
+                )}
+                <img style={{ width: "200px", height: "200px" }} id="imageContainer" src={this.state.file} alt="" />
             </div>
         );
     }

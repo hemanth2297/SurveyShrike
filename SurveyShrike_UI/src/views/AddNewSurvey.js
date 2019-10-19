@@ -182,7 +182,20 @@ export default class AddNewSurvey extends React.Component {
     const Question = (<ListGroupItem className="p-3">
       <FormGroup>
         <label htmlFor="feInputAddress">{QuestionObject.question}</label>
-        <FormInput id="feInputAddress" placeholder="1234 Main St" />
+        <FormInput id="feInputAddress" placeholder="Answer" />
+      </FormGroup>
+    </ListGroupItem>);
+
+
+    return Question
+  }
+
+  AddUploadQuestion = (QuestionObject) => {
+    const Question = (<ListGroupItem className="p-3">
+      <FormGroup>
+        <label htmlFor="feInputAddress">{QuestionObject.question}</label>
+        <FormInput type="file" onChange={this.onChange} />
+        {/* <FormInput id="feInputAddress" placeholder="1234 Main St" /> */}
       </FormGroup>
     </ListGroupItem>);
 
@@ -197,7 +210,7 @@ export default class AddNewSurvey extends React.Component {
     })
     if (event.target.name === "questionType") {
       this.setState({
-        disableOptions: event.target.value === "Text" || event.target.value === "Slider" ? true : false,
+        disableOptions: event.target.value === "Text" || event.target.value === "Slider" || event.target.value === "Upload" ? true : false,
         disaleRange: event.target.value === "Slider" ? false : true,
       })
     }
@@ -253,6 +266,9 @@ export default class AddNewSurvey extends React.Component {
                         }
                         if (obj.questionType === "Slider") {
                           return this.AddSliderQuestion(obj)
+                        }
+                        if (obj.questionType === "Upload") {
+                          return this.AddUploadQuestion(obj)
                         }
                         return ""
                       })}

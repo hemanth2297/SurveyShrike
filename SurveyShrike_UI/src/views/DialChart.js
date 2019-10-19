@@ -8,14 +8,7 @@ import { Col, FormRadio, } from "shards-react";
 // Step 6 - Adding the chart and theme as dependency to the core fusioncharts
 ReactFC.fcRoot(FusionCharts, Widgets, FusionTheme);
 
-// Step 7 - Creating the JSON object to store the chart configurations
-// const chartConfigs = {
-//     type: 'angulargauge', // The gauge type
-//     width: '450', // Width of the gauge
-//     height: '250', // Height of the gauge
-//     dataFormat: 'json', // Data type
 
-// };
 
 // Step 9 - Creating the DOM element to pass the react-fusioncharts component
 export default class App extends React.Component {
@@ -61,7 +54,7 @@ export default class App extends React.Component {
     addToState = (event) => {
         let datasource = this.state.dataSource
         datasource.dials.dial[0].value = this.props.avgValue[event.target.value]
-        console.log(datasource)
+
         this.setState({
             datasource: datasource,
             viewType: event.target.value

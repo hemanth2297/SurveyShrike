@@ -58,6 +58,7 @@ export default class SidebarActions extends React.Component {
                 <option>Radio</option>
                 <option>DropDown</option>
                 <option>Slider</option>
+                <option>Upload</option>
               </FormSelect>
 
               <FormGroup>

@@ -59,6 +59,7 @@ export default class SurveyForm extends React.Component {
     })
   }
   submitSurvey = () => {
+
     this.setState({
       validate: true
     })
@@ -225,7 +226,38 @@ export default class SurveyForm extends React.Component {
 
     return Question
   }
+  onFileUpload = (index, event) => {
+    console.log(index)
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      const answer = this.state.answers
+      answer[index] = reader.result
+      this.setState({
+        answers: answer,
+        validate: false
+      })
+    };
+    console.log(this.state.answers)
+  }
 
+  AddUploadQuestion = (QuestionObject, index) => {
+
+    const img = this.state.answers[index] ?
+      (<img style={{ width: "200px", height: "200px" }} id="imageContainer" src={this.state.answers[index]} alt="" />
+      ) : ""
+
+    const Question = (<ListGroupItem className="p-3">
+      <FormGroup>
+        <label htmlFor="feInputAddress">{QuestionObject.question}</label>
+        <FormInput type="file" onChange={(e) => this.onFileUpload(index, e)} />
+        {img}
+      </FormGroup>
+    </ListGroupItem>);
+
+
+    return Question
+  }
 
   closeWindow() {
     window.open('', '_parent', '').close()
@@ -297,6 +329,9 @@ export default class SurveyForm extends React.Component {
                         }
                         if (obj.questionType === "Slider") {
                           return this.AddSliderQuestion(obj, index)
+                        }
+                        if (obj.questionType === "Upload") {
+                          return this.AddUploadQuestion(obj, index)
                         }
                         return ""
                       }) : ""}

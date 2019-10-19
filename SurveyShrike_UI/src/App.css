@@ -11,7 +11,11 @@
 .InvalidEntry{
   color:red;
 }
-
+.Login{
+  position: fixed;
+  top:30vh;
+  left:40vw;
+}
 
 @font-face {
   font-family: 'Toast_icons';

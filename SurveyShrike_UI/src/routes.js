@@ -16,7 +16,7 @@ import Register from './views/Register';
 import SurveyEntries from "./views/SurveyEntries";
 import UserSurveyDashoard from './views/UserSurveyDashoard';
 import FusionCharts from './views/FusionCharts';
-import DialChart from './views/DialChart';
+import Modal from './views/Modal';
 
 export default [
 
@@ -45,7 +45,7 @@ export default [
   {
     path: "/modal",
     layout: DefaultLayout,
-    component: DialChart
+    component: Modal
   },
   {
     path: "/logout",
