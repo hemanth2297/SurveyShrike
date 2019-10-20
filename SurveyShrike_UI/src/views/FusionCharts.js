@@ -7,10 +7,8 @@ import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import { Col, FormRadio, } from "shards-react";
 ReactFC.fcRoot(FusionCharts, Pie2D, FusionTheme);
 
-
-
 // This Component is used to view Pie Chart for Radio and DrillDown Questions
-class FusionCharts extends React.Component {
+class FusionCharts2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -95,4 +93,4 @@ class FusionCharts extends React.Component {
     }
 }
 
-export default FusionCharts
+export default FusionCharts2
