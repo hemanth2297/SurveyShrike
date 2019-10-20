@@ -1,4 +1,4 @@
-
+const OAUTH_URL = "http://18.216.33.98:5001/"
 export function authHeader() {
     // return authorization header with basic auth credentials
     const test = localStorage.getItem('user')
@@ -19,7 +19,7 @@ export async function login(username: any, password: any) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
-    const url = "http://127.0.0.1:5001/login"
+    const url = OAUTH_URL + "login";
     const response = await fetch(url, requestOptions);
     console.log(response)
     const user = await handleResponse(response);
@@ -49,7 +49,7 @@ export async function register(username: any, password: any) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
-    const url = "http://127.0.0.1:5001/register"
+    const url = OAUTH_URL + "register"
     const response = await fetch(url, requestOptions);
     console.log(response)
     const user = await handleResponse(response);

@@ -1,6 +1,6 @@
 
 
-const surveyUrl = "http://127.0.0.1:5002/"
+const surveyUrl = "http://18.216.33.98:5002/"
 
 export async function getAllSurvyes() {
     const access_token = localStorage.getItem('access_token')
