@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import { DefaultLayout } from "./layouts";
 
 // Route Views
-import UserProfileLite from "./views/UserProfileLite";
+
 import AddNewSurvey from "./views/AddNewSurvey";
 import Errors from "./views/Errors";
 import SurveyDashboard from "./views/SurveyDashboard";
@@ -15,8 +15,6 @@ import Logout from "./views/logout";
 import Register from './views/Register';
 import SurveyEntries from "./views/SurveyEntries";
 import UserSurveyDashoard from './views/UserSurveyDashoard';
-import FusionCharts from './views/FusionCharts';
-import Modal from './views/Modal';
 
 export default [
 
@@ -37,16 +35,7 @@ export default [
     layout: DefaultLayout,
     component: Login
   },
-  {
-    path: "/fus",
-    layout: DefaultLayout,
-    component: FusionCharts
-  },
-  {
-    path: "/modal",
-    layout: DefaultLayout,
-    component: Modal
-  },
+
   {
     path: "/logout",
     layout: DefaultLayout,
@@ -56,11 +45,6 @@ export default [
     path: "/register",
     layout: DefaultLayout,
     component: Register
-  },
-  {
-    path: "/user-profile-lite",
-    layout: DefaultLayout,
-    component: UserProfileLite
   },
   {
     path: "/add-new-survey",
