@@ -1,12 +1,9 @@
-flask,
-flask_cors,
-flask_restful,
-flask_jsonpify,
-json,
-pymongo,
-urllib,
+flask
+flask_cors
+flask_restful
+flask_jsonpify
+pymongo
 requests
-time,
 PyJWT
 
 
