@@ -70,8 +70,6 @@ class FusionCharts extends React.Component {
 
     }
     render() {
-        // chartConfigs.dataSource.data = this.state.data
-
         return (
             <div>
                 <ReactFC

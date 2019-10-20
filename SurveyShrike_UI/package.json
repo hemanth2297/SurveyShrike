@@ -2,6 +2,10 @@
   "name": "shards-dashboard-lite-react",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "npm": "6.11.3",
+    "node": "12.12.0"
+  },
   "homepage": "./",
   "dependencies": {
     "@syncfusion/ej2-base": "^17.3.16",
