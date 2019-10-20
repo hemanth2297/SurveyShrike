@@ -58,7 +58,7 @@ class FusionCharts2 extends React.Component {
     // Adding to State on change of the form Value
     addToState = (event) => {
         let datasource = this.state.dataSource
-        if (event.target.name === "gender") {
+        if (event.target.name === "gender2") {
             datasource.data = this.convertTodata(this.props.statsRender[event.target.value])
             this.setState({
                 datasource: datasource,
@@ -81,9 +81,9 @@ class FusionCharts2 extends React.Component {
 
                 <Col sm="12" md="8" className="mb-3 ml-4" width={400}>
                     <fieldset>
-                        <FormRadio inline value="total" name='gender' onChange={this.addToState} checked={this.state.viewType === "total"}>Total</FormRadio>
-                        <FormRadio inline value="Male" name='gender' onChange={this.addToState} checked={this.state.viewType === "Male"}>Male</FormRadio>
-                        <FormRadio inline value="Female" name='gender' onChange={this.addToState} checked={this.state.viewType === "Female"}> Female</FormRadio>
+                        <FormRadio inline value="total" name='gender2' onChange={this.addToState} checked={this.state.viewType === "total"}>Total</FormRadio>
+                        <FormRadio inline value="Male" name='gender2' onChange={this.addToState} checked={this.state.viewType === "Male"}>Male</FormRadio>
+                        <FormRadio inline value="Female" name='gender2' onChange={this.addToState} checked={this.state.viewType === "Female"}> Female</FormRadio>
                     </fieldset>
                 </Col>
 

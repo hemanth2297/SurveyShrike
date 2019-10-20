@@ -45,7 +45,7 @@ export default class SurveyUsers extends React.Component {
                   this.props.surveyEntries.length > 0 ? this.props.surveyEntries.map((obj, index) => {
 
                     return (<tr>
-                      <td>{index}</td>
+                      <td>{index + 1}</td>
                       <td onClick={() => { this.props.getUserSurveyAnswer(obj.userName) }} >{obj.userName}</td>
                     </tr>);
                   }) : ""

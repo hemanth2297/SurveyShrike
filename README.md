@@ -8,8 +8,6 @@ Survey Shrike is Used to Create the Survey Forms. Owner can view all the survey 
 - [Installation](#installation)
 - [How Survey Shrike Works ?](#How)
 - [Features](#Features)
-- [Technology Stack](#faq)
-- [License](#license)
 
 
 ## Installation
@@ -28,7 +26,7 @@ Install Python >=2.7 ( Make Sure the ports 5001 & 5002 are free)
 
 Install all the requirements for the project
 ```shell
-$ pip install requirements.txt
+$  pip install -r requirements.txt
 ```
 
 
@@ -36,7 +34,7 @@ Go to OAuth folder
 > Start the Aunthentication API
 ```shell
 $ cd SurveyShrike_API/Oauth
-$ pyhton Authentication.py
+$ pyhton app_.py
 ```
 
 Go to SurveyShrike folder
@@ -44,7 +42,7 @@ Go to SurveyShrike folder
 
 ```shell
 $ cd ../SurveyShrike
-$ pyhton SurveyShrike.py
+$ pyhton app.py
 ```
 
 - #### FrontEnd Server

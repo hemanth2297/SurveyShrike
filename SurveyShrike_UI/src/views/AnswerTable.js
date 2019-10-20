@@ -41,7 +41,7 @@ export default class SurveyUsers extends React.Component {
                                     this.props.surveyEntries.length > 0 ? this.props.surveyEntries.map((obj, index) => {
 
                                         return (<tr>
-                                            <td>{index}</td>
+                                            <td>{index + 1}</td>
                                             <td>{obj.userName}</td>
                                             <td>{obj.entryForm[this.props.textqsnIndex]}</td>
                                         </tr>);

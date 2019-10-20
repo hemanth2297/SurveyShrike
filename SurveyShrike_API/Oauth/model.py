@@ -9,7 +9,7 @@ from flask import (Flask, make_response, render_template,
 import jwt
 
 # Setting the access token xpiration duration
-LIFE_SPAN = 180
+LIFE_SPAN = 1800
 
 # Signature for the access_token
 ISSUER = 'SurveyShrike OAuth Server'

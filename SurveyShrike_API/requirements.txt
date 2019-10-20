@@ -1,1 +1,13 @@
-pip install -r requirements
+flask,
+flask_cors,
+flask_restful,
+flask_jsonpify,
+json,
+pymongo,
+urllib,
+requests
+time,
+PyJWT
+
+
+
