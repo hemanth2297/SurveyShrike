@@ -5,6 +5,7 @@ flask_jsonpify
 pymongo[srv]
 requests
 PyJWT
+cryptography
 
 
 
