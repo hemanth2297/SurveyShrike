@@ -4,6 +4,7 @@ flask_restful
 flask_jsonpify
 pymongo[srv]
 requests
+cryptography
 PyJWT
 cryptography
 

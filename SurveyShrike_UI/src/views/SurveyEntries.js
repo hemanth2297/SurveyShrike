@@ -7,7 +7,7 @@ import {
   CardHeader,
   ListGroup,
   ListGroupItem,
-  Button,
+  // Button,
   FormRadio,
   FormInput,
   FormGroup,
@@ -318,7 +318,7 @@ export default class AddNewSurvey extends React.Component {
                     }
 
 
-                    <ListGroupItem className="p-3">
+                    {/* <ListGroupItem className="p-3">
                       <Row>
                         <Col>
                           <Button theme="primary" className="mb-2 mr-2" onClick={this.createSurvey}>
@@ -327,7 +327,7 @@ export default class AddNewSurvey extends React.Component {
                             Cancel</Button>
                         </Col>
                       </Row>
-                    </ListGroupItem>
+                    </ListGroupItem> */}
 
                   </ListGroup>
                 </Card>

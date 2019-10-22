@@ -1,4 +1,4 @@
-
+const localUrl = "http://127.0.0.1:5002/"
 
 const surveyUrl = "http://18.216.33.98:5002/"
 
@@ -73,37 +73,35 @@ export async function createForm(surveyObject: any) {
 }
 
 export async function getSurvey(surveyName: any) {
-    const access_token = localStorage.getItem('access_token')
-    if (access_token) {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': access_token
-            },
-            body: JSON.stringify({ "surveyName": surveyName })
-        };
-        const response = await fetch(surveyUrl + "getSurvey", requestOptions);
-        return handleResponse(response);
 
-    }
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "surveyName": surveyName })
+    };
+    const response = await fetch(surveyUrl + "getSurvey", requestOptions);
+    return handleResponse(response);
+
+
 }
 
 export async function fillForm(surveyEntry: any) {
-    const access_token = localStorage.getItem('access_token')
-    if (access_token) {
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': access_token
-            },
-            body: JSON.stringify(surveyEntry)
-        };
-        const response = await fetch(surveyUrl + "fillSurvey", requestOptions);
-        return handleResponse(response);
 
-    }
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+
+        },
+        body: JSON.stringify(surveyEntry)
+    };
+    const response = await fetch(surveyUrl + "fillSurvey", requestOptions);
+    return handleResponse(response);
+
+
 }
 
 

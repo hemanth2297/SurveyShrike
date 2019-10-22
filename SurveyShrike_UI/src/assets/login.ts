@@ -1,4 +1,5 @@
 const OAUTH_URL = "http://18.216.33.98:5001/"
+const localUrl = "http://127.0.0.1:5001/"
 export function authHeader() {
     // return authorization header with basic auth credentials
     const test = localStorage.getItem('user')
